@@ -14,6 +14,101 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+convertToMeters         1;
 
+xmax                    10;
+ymax                    0.5;
+zmax                    0.1;
+xmin                    0;
+ymin                    -0.5;
+zmin                    0;
+
+xcells                  100;
+ycells                  10;
+zcells                  1;
+
+vertices
+(
+    ($xmin $ymin $zmin)
+    ($xmax $ymin $zmin)
+    ($xmax $ymax $zmin)
+    ($xmin $ymax $zmin)
+    ($xmin $ymin $zmax)
+    ($xmax $ymin $zmax)
+    ($xmax $ymax $zmax)
+    ($xmin $ymax $zmax)
+);
+
+blocks 
+(
+    hex (0 1 2 3 4 5 6 7) ($xcells $ycells $zcells) simpleGrading (1 1 1)
+);
+
+edges
+(
+
+);
+
+boundary
+(
+    top
+    {
+        type        wall;
+        faces
+        (
+            (3 7 6 2)
+        );
+    }
+
+    bottom
+    {
+        type        wall;
+        faces 
+        (
+            (0 1 5 4)
+        );
+    }
+
+    inlet
+    {
+        type        patch;
+        faces
+        (
+            (0 4 7 3)
+        );
+    }
+
+    outlet
+    {   
+        type        patch;
+        faces
+        (
+            (1 2 6 5)
+        );
+    }
+
+    front
+    {
+        type        empty;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+
+    back
+    {
+        type        empty;
+        faces
+        (
+            (0 3 2 1)
+        );
+    }
+);
+
+mergePatchPairs
+(
+
+);
 
 // ************************************************************************* //
