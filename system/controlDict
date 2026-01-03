@@ -26,7 +26,7 @@ stopAt              endTime;
 
 endTime             20;
 
-deltaT              0.05;
+deltaT              0.05;   //number of calculations 20 * 0.05 = 400 calculations
 
 writeControl        runTime;
 
@@ -44,5 +44,45 @@ timePrecision       6;
 
 runTimeModifiable   true;
 
-// ************************************************************************* //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+functions
+{
+    minmaxDomain
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects");
+        log             true;
+        writeControl    timeStep;
+        writeFields     false;
+        select          all;
+        operation       (min max);
+        fields 
+        (
+            p
+            U
+        );
+    }
+
+    inletMassFlow
+    {
+
+    }
+
+    outletMassFlow
+    {
+
+    }
+
+    inletWeightedAverage
+    {
+
+    }
+
+    outletMax
+    {
+        
+    }
+}
+
+// ************************************************************************* //
