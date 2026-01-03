@@ -48,40 +48,132 @@ runTimeModifiable   true;
 
 functions
 {
-    minmaxDomain
+    minmaxPressureDomain
     {
         type            volFieldValue;
-        libs            ("libfieldFunctionObjects");
+        libs            ("libfieldFunctionObjects.so");
+        enabled         true;
         log             true;
         writeControl    timeStep;
         writeFields     false;
         select          all;
-        operation       (min max);
+        operation       none;
         fields 
         (
             p
+        );
+    }
+
+    minmaxVelocityDomain
+    {
+        type            volFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        enabled         true;
+        log             true;
+        writeControl    timeStep;
+        writeFields     false;
+        select          all;
+        operation       none;
+        fields 
+        (
             U
         );
     }
 
+    minPressure 
+    {
+        $minmaxPressureDomain;
+        operation       min;
+    }
+
+    maxPressure 
+    {
+        $minmaxPressureDomain;
+        operation       max;
+    }
+
+    minVelocity
+    {
+        $minmaxVelocityDomain;
+        operation       minMag;
+    }
+
+    maxVelocity
+    {
+        $minmaxVelocityDomain;
+        operation       maxMag;
+    }
+
+
     inletMassFlow
     {
-
+        type            surfaceFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        enabled         true;
+        log             true;
+        writeControl    timeStep;
+        writeFields     false;
+        regionType      patch;
+        patch           inlet;
+        operation       sum;
+        fields
+        (
+            phi
+        );
     }
 
     outletMassFlow
     {
-
+        type            surfaceFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        enabled         true;
+        log             true;
+        writeControl    timeStep;
+        writeFields     false;
+        regionType      patch;
+        patch           outlet;
+        operation       sum;
+        fields
+        (
+            phi
+        );
     }
 
     inletWeightedAverage
     {
-
+        type            surfaceFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        enabled         true;
+        log             true;
+        writeControl    timeStep;
+        writeFields     false;
+        regionType      patch;
+        patch           inlet;
+        operation       average;
+        fields
+        (
+            phi
+            U
+            p
+        );
     }
 
     outletMax
     {
-        
+        type            surfaceFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        enabled         true;
+        log             true;
+        writeControl    timeStep;
+        writeFields     false;
+        regionType      patch;
+        patch           outlet;
+        operation       max;
+        fields
+        (
+            U
+            p
+        );
     }
 }
 

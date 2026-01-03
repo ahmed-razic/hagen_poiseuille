@@ -9,41 +9,22 @@ FoamFile
 {
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      fvSchemes;
+    location    "18/uniform";
+    object      time;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-ddtSchemes
-{
-    default             Euler;
-}
+beginTime       0;
 
-gradSchemes
-{
-    default             Gauss linear;
-    grad(p)             Gauss linear;
-}
+value           18.0000000000001208;
 
-divSchemes
-{
-    default             none;
-    div(phi,U)          Gauss linear;
-}
+name            "18";
 
-laplacianSchemes
-{
-    default             Gauss linear orthogonal;
-}
+index           360;
 
-interpolationSchemes
-{
-    default             linear;
-}
+deltaT          0.05;
 
-snGradSchemes
-{
-    default             orthogonal;
-}
+deltaT0         0.05;
+
 
 // ************************************************************************* //
