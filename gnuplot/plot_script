@@ -1,0 +1,16 @@
+set terminal qt 0
+
+set title "Solution at time 20"
+
+set xlabel "Radius"
+set ylabel "U_y"
+set key bottom
+
+set grid
+
+plot "postProcessing/sampleDict/20/y_line.xy" using 1:2 with linespoints linetype 1 linecolor "blue" pointtype 7 title "Numerical solution",\
+1.4701522*(1-(x/0.5)**2) title "Analytical solution"
+
+pause -1
+
+#EOF
